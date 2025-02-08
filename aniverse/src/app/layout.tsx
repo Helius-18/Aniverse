@@ -20,9 +20,7 @@ export default function RootLayout({
         <div className="d-flex justify-content-between align-items-center p-3">
 
           <div className="title">
-            <div className="title">
               <h4>Aniverse</h4>
-            </div>
           </div>
 
           <div className="login-button d-flex gap-4 align-items-center">
