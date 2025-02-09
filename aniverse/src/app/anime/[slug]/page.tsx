@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import { useParams } from 'next/navigation';
 import { getAnimeDetails, getEpisodeDetails, getEpisodes } from '@/lib/AnimeHelper';
 import AnimeTile from '@/shared/animeTile';
@@ -88,4 +88,11 @@ const AnimePlayer = () => {
     )
 }
 
-export default AnimePlayer
+
+const AnimePlayerPageWithSuspense = () => (
+    <Suspense fallback={<div>Loading anime results...</div>}>
+      <AnimePlayer />
+    </Suspense>
+  );
+  
+export default AnimePlayerPageWithSuspense;

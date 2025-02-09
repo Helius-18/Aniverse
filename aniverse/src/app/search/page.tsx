@@ -1,9 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { searchAnime } from "@/lib/AnimeHelper";
-import { useRouter } from 'next/navigation';
 import AnimeTile from "@/shared/animeTile";
 
 const SearchPage = () => {
@@ -88,4 +87,11 @@ const SearchPage = () => {
     );
 }
 
-export default SearchPage;
+
+const SearchPageWithSuspense = () => (
+    <Suspense fallback={<div>Loading search results...</div>}>
+      <SearchPage />
+    </Suspense>
+  );
+  
+export default SearchPageWithSuspense;
