@@ -12,20 +12,19 @@ const SearchPage = () => {
     const [results, setResults] = useState<any[]>([]);
     const [data, setData] = useState({} as any);
     const searchParams = useSearchParams();
-    const router = useRouter();
 
     const fetchAnimeList = async (query: string) => {
         setIsLoading(true);
-        const data = await searchAnime(query);
-        setData(data);
-        setResults(data?.results || []);
+        const data = await searchAnime(query);        
+        // setData(data);
+        setResults(data?.animes || []);
         setIsLoading(false);
     }
 
     const onPageChange = async (pageNumber: number | undefined) => {
         setIsLoading(true);
         const data = await searchAnime(searchQuery, pageNumber);
-        setData(data);
+        // setData(data);
         setResults(data?.results || []);
         setIsLoading(false);
     }

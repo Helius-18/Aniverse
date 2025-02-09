@@ -1,17 +1,9 @@
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const query = searchParams.get("query");
-
-  // Check if the 'query' parameter is provided
-  if (!query) {
-    return NextResponse.json({ error: "Query parameter is required" }, { status: 400 });
-  }
-
+export async function GET() {
   try {
     // Use fetch with async/await
-    const response = await fetch(`https://api-anime-rouge.vercel.app/aniwatch/episode-srcs?id=${query}`, {
+    const response = await fetch(`https://api-anime-rouge.vercel.app/aniwatch/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

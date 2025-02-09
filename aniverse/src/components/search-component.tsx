@@ -7,7 +7,6 @@ const SearchComponent = () => {
     const searchAnime = () => {
         const searchInput = document?.getElementById('search') as HTMLInputElement;
         router.push(`/search?q=${searchInput?.value}`)
-        searchInput.value = '';
     }
 
     return (

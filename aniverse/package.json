@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@consumet/extensions": "^1.8.1",
+    "hls.js": "^1.5.20",
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

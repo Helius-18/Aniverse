@@ -11,7 +11,7 @@ const AnimeTile = ({anime} : any) => {
 
     return (
         <div className="d-flex flex-column justify-content-center text-center p-3" key={anime?.id} style={{ cursor: 'pointer' }} onClick={() => openAnime(anime?.id)}>
-            <img src={anime?.image} alt={anime?.title} width={150} height={200} className="rounded" />
+            <img src={anime?.img} alt={anime?.name} width={150} height={200} className="rounded" />
             <div
                 style={{
                     width: '15vh',
@@ -20,7 +20,7 @@ const AnimeTile = ({anime} : any) => {
                     textOverflow: 'ellipsis'
                 }}
             >
-                {anime?.title}
+                {anime?.name}
             </div>
         </div>
     )

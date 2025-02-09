@@ -1,5 +1,5 @@
 import '@/app/global.css'
-import SearchComponent from '@/components/search-component/search-component';
+import SearchComponent from '@/components/search-component';
 
 export const metadata = {
   title: 'Aniverse',

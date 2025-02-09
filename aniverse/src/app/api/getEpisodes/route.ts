@@ -11,7 +11,7 @@ export async function GET(request: Request) {
 
   try {
     // Use fetch with async/await
-    const response = await fetch(`https://api-anime-rouge.vercel.app/aniwatch/episode-srcs?id=${query}`, {
+    const response = await fetch(`https://api-anime-rouge.vercel.app/aniwatch/episodes/${query}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

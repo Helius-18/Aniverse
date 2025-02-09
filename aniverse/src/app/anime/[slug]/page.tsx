@@ -2,29 +2,36 @@
 
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation';
-import { getAnimeDetails, getEpisodeDetails } from '@/lib/AnimeHelper';
+import { getAnimeDetails, getEpisodeDetails, getEpisodes } from '@/lib/AnimeHelper';
 import AnimeTile from '@/shared/animeTile';
+import HLSPlayer from '@/components/HLSPlayer';
 
 const AnimePlayer = () => {
     const params = useParams();
     const slug = params.slug as string;
     const [isloading, setIsLoading] = useState(false);
     const [data, setData] = useState({} as any);
-    const [currentEpsd, setCurrentEpsd] = useState(0);
+    const [currentEpsd, setCurrentEpsd] = useState(-1);
+    const [videoUrl, setVideoUrl] = useState('');
 
     const fetchAnimeDetails = async () => {
         setIsLoading(true);
-        var data = await getAnimeDetails(slug);
-        setData(data);
-        console.log(data);
-        // var response = await getEpisodeDetails(data?.episodes[0]?.id);
-        // console.log(response);
+        var details = await getAnimeDetails(slug);
+        var episodes = await getEpisodes(slug);
+        details = {...details , episodes : episodes?.episodes}
+        setData(details);
         setIsLoading(false);
+        
+        setCurrentEpsd(0);
+        var response = await getEpisodeDetails(details?.episodes[0]?.episodeId);
+        setVideoUrl(response?.sources[0]?.url);
     }
 
     const playEpisode = async (epsd: number) => {
-        var response = await getEpisodeDetails(data?.episodes[epsd]?.id);
+        setCurrentEpsd(epsd);
+        var response = await getEpisodeDetails(data?.episodes[epsd]?.episodeId);
         console.log(response);
+        setVideoUrl(response?.sources[0]?.url);
     }
 
     useEffect(() => {
@@ -38,37 +45,39 @@ const AnimePlayer = () => {
                 </div>
             </div>
             : <div className='p-3'>
-                <div className="player">
-
+                <div className="player bg-black d-flex justify-content-around">
+                    {
+                        videoUrl?.length!=0 ? <HLSPlayer videoUrl={videoUrl} /> : <></>
+                    }
                 </div>
                 {
-                    data?.episodes?.length > 1
-                        ? <div>
+                    data?.episodes?.length >= 1
+                        ? <div className='mt-3'>
                             <h5>Episodes :</h5>
                             <div className="episodes d-flex flex-wrap gap-2 pt-1">
                                 {data?.episodes?.map((episode: any) => (
-                                    <div className='p-2 bg-secondary rounded' style={{ cursor: 'pointer' }} key={episode?.id} onClick={() => playEpisode(episode?.number - 1)}>{episode?.number}</div>
+                                    <div className={((episode?.episodeNo - 1) == currentEpsd) ? 'p-2 rounded bg-primary' : 'p-2 rounded bg-secondary' } style={{ cursor: 'pointer' }} key={episode?.episodeNo} onClick={() => playEpisode(episode?.episodeNo - 1)}>{episode?.episodeNo}</div>
                                 ))}
                             </div>
                         </div>
                         : <></>
                 }
                 <div className='d-flex align-items-center mt-3'>
-                    <AnimeTile anime={data || {}} />
+                    <AnimeTile anime={data?.info || {}} />
                     <div className="details">
-                        <h4>{data?.title}</h4>
-                        <p>Type : {data?.type}</p>
-                        <p>Episodes : {data?.episodes?.length}</p>
-                        <p>{data?.description}</p>
+                        <h4>{data?.info?.name}</h4>
+                        <p>Type : {data?.info?.category}</p>
+                        <p>Episodes : {data?.info?.episodes?.eps}</p>
+                        <p>{data?.info?.description}</p>
                     </div>
                 </div>
 
                 {
-                    data?.recommendations ?
+                    data?.recommendedAnimes ?
                         <div className='mt-4'>
                             <h5>Recommendations :</h5>
                             <div className="d-flex flex-wrap justify-content-start align-items-start mt-3">
-                                {data?.recommendations?.map((anime: any) => (
+                                {data?.recommendedAnimes?.map((anime: any) => (
                                     <AnimeTile anime={anime} key={anime?.id} />
                                 ))}
                             </div>
