@@ -41,7 +41,7 @@ Aniverse is an anime streaming website built with Next.js. It provides users wit
 
 ## Deployment
 
-Aniverse can be deployed on platforms like Vercel with ease. Simply push the repository to GitHub and connect it to Vercel for automatic deployments.
+Aniverse is currently live at [https://aniverse-flame.vercel.app/](https://aniverse-flame.vercel.app/). It can be deployed on platforms like Vercel with ease. Simply push the repository to GitHub and connect it to Vercel for automatic deployments.
 
 ## Contributing
 
