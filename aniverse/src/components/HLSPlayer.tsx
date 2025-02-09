@@ -52,6 +52,7 @@ const HLSPlayer: React.FC<HLSPlayerProps> = ({ videoUrl }) => {
         controls
         width="1000vh"
         height="auto"
+        autoPlay={true}
         style={{ maxWidth: '100%', minHeight: '100%'}}
       />
     </div>
