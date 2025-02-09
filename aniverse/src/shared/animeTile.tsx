@@ -11,7 +11,7 @@ const AnimeTile = ({anime} : any) => {
 
     return (
         <div className="d-flex flex-column justify-content-center text-center p-3" key={anime?.id} style={{ cursor: 'pointer' }} onClick={() => openAnime(anime?.id)}>
-            <img src={anime?.img} alt={anime?.name} style={{width : "15vh", height: "22vh"}} className="rounded" />
+            <img src={anime?.img} alt={anime?.name} style={{width : "17vh", height: "22vh"}} className="rounded" />
             <div
                 style={{
                     width: '15vh',
